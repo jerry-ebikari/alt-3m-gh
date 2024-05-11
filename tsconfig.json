@@ -28,6 +28,6 @@
       ]
     }
   },
-  "include": ["src"],
+  "include": ["src", "@/components/lib"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
