@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function useFetch(url: string, params?: Record<string, string | number>, changeTriggers?: any[]) {
+function useFetch(url: string, params?: Record<string, string | number>, changeTriggers?: any[], reqHeaders?: any) {
   const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
   const [headers, setHeaders] = useState<any>(null);
 
@@ -12,7 +12,11 @@ function useFetch(url: string, params?: Record<string, string | number>, changeT
       // setData(null);
       setError(null);
       const source = axios.CancelToken.source();
-      axios.get(url, { cancelToken: source.token, params })
+      axios.get(url, {
+        cancelToken: source.token,
+        params,
+        headers: reqHeaders
+      })
       .then((res: any) => {
           setLoading(false);
           setHeaders(res?.headers)
